@@ -3,6 +3,12 @@ This is our ad producer microservice. The goal of this microservice is for a mar
 
 With this microservice you hit and endpoint with your query and the message you would like to send out in the email. Application connects through gRPC (google RPC) to the monolithic flight application and retrieves all emails based on the query. The ad producer microservice then uses the mails to send out a marketing email with content specified.
 
+**Bright green boxes are the relevant applications:**
+
+<p align="center">
+  <img src="https://i.imgur.com/5vAX4uO.png" width=60%/>
+</p>
+
 ## Getting started
 ### Requirements
 - Python 3.7+ 
