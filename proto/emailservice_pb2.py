@@ -17,9 +17,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='emailservice.proto',
   package='emailservice',
   syntax='proto3',
-  serialized_options=b'P\001\242\002\003EMS',
+  serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x12\x65mailservice.proto\x12\x0c\x65mailservice\"\x1c\n\x0cHelloRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"\x1d\n\nHelloReply\x12\x0f\n\x07message\x18\x01 \x01(\t\"&\n\x05Query\x12\r\n\x05\x66ield\x18\x01 \x01(\t\x12\x0e\n\x06\x66ilter\x18\x02 \x01(\t\"$\n\x05\x45mail\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t2\xd3\x01\n\x0c\x45mailService\x12\x36\n\x08GetEmail\x12\x13.emailservice.Query\x1a\x13.emailservice.Email\"\x00\x12\x42\n\x08SayHello\x12\x1a.emailservice.HelloRequest\x1a\x18.emailservice.HelloReply\"\x00\x12G\n\rSayHelloAgain\x12\x1a.emailservice.HelloRequest\x1a\x18.emailservice.HelloReply\"\x00\x42\x08P\x01\xa2\x02\x03\x45MSb\x06proto3'
+  serialized_pb=b'\n\x12\x65mailservice.proto\x12\x0c\x65mailservice\"\x1c\n\x0cHelloRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"\x1d\n\nHelloReply\x12\x0f\n\x07message\x18\x01 \x01(\t\"&\n\x05Query\x12\r\n\x05\x66ield\x18\x01 \x01(\t\x12\x0e\n\x06\x66ilter\x18\x02 \x01(\t\"3\n\x0cListOfEmails\x12#\n\x06\x65mails\x18\x01 \x03(\x0b\x32\x13.emailservice.Email\"+\n\x05\x45mail\x12\x14\n\x0cmail_address\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t2\x86\x01\n\x0c\x45mailService\x12\x36\n\x08GetEmail\x12\x13.emailservice.Query\x1a\x13.emailservice.Email\"\x00\x12>\n\tGetEmails\x12\x13.emailservice.Query\x1a\x1a.emailservice.ListOfEmails\"\x00\x62\x06proto3'
 )
 
 
@@ -128,6 +128,38 @@ _QUERY = _descriptor.Descriptor(
 )
 
 
+_LISTOFEMAILS = _descriptor.Descriptor(
+  name='ListOfEmails',
+  full_name='emailservice.ListOfEmails',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='emails', full_name='emailservice.ListOfEmails.emails', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=137,
+  serialized_end=188,
+)
+
+
 _EMAIL = _descriptor.Descriptor(
   name='Email',
   full_name='emailservice.Email',
@@ -137,7 +169,7 @@ _EMAIL = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='email', full_name='emailservice.Email.email', index=0,
+      name='mail_address', full_name='emailservice.Email.mail_address', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -162,13 +194,15 @@ _EMAIL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=137,
-  serialized_end=173,
+  serialized_start=190,
+  serialized_end=233,
 )
 
+_LISTOFEMAILS.fields_by_name['emails'].message_type = _EMAIL
 DESCRIPTOR.message_types_by_name['HelloRequest'] = _HELLOREQUEST
 DESCRIPTOR.message_types_by_name['HelloReply'] = _HELLOREPLY
 DESCRIPTOR.message_types_by_name['Query'] = _QUERY
+DESCRIPTOR.message_types_by_name['ListOfEmails'] = _LISTOFEMAILS
 DESCRIPTOR.message_types_by_name['Email'] = _EMAIL
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -193,6 +227,13 @@ Query = _reflection.GeneratedProtocolMessageType('Query', (_message.Message,), {
   })
 _sym_db.RegisterMessage(Query)
 
+ListOfEmails = _reflection.GeneratedProtocolMessageType('ListOfEmails', (_message.Message,), {
+  'DESCRIPTOR' : _LISTOFEMAILS,
+  '__module__' : 'emailservice_pb2'
+  # @@protoc_insertion_point(class_scope:emailservice.ListOfEmails)
+  })
+_sym_db.RegisterMessage(ListOfEmails)
+
 Email = _reflection.GeneratedProtocolMessageType('Email', (_message.Message,), {
   'DESCRIPTOR' : _EMAIL,
   '__module__' : 'emailservice_pb2'
@@ -201,7 +242,6 @@ Email = _reflection.GeneratedProtocolMessageType('Email', (_message.Message,), {
 _sym_db.RegisterMessage(Email)
 
 
-DESCRIPTOR._options = None
 
 _EMAILSERVICE = _descriptor.ServiceDescriptor(
   name='EmailService',
@@ -210,8 +250,8 @@ _EMAILSERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=176,
-  serialized_end=387,
+  serialized_start=236,
+  serialized_end=370,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetEmail',
@@ -224,22 +264,12 @@ _EMAILSERVICE = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='SayHello',
-    full_name='emailservice.EmailService.SayHello',
+    name='GetEmails',
+    full_name='emailservice.EmailService.GetEmails',
     index=1,
     containing_service=None,
-    input_type=_HELLOREQUEST,
-    output_type=_HELLOREPLY,
-    serialized_options=None,
-    create_key=_descriptor._internal_create_key,
-  ),
-  _descriptor.MethodDescriptor(
-    name='SayHelloAgain',
-    full_name='emailservice.EmailService.SayHelloAgain',
-    index=2,
-    containing_service=None,
-    input_type=_HELLOREQUEST,
-    output_type=_HELLOREPLY,
+    input_type=_QUERY,
+    output_type=_LISTOFEMAILS,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),

@@ -18,8 +18,8 @@ import logging
 
 import grpc
 
-import emailservice_pb2
-import emailservice_pb2_grpc
+from proto import emailservice_pb2, emailservice_pb2_grpc
+
 
 class Greeter(emailservice_pb2_grpc.EmailServiceServicer):
 
@@ -33,7 +33,28 @@ class Greeter(emailservice_pb2_grpc.EmailServiceServicer):
         # DAO.GetEmail(request.field, request.filter)
         # SELECT email, name from Users where User.field = filter
 
-        return emailservice_pb2.Email(email="emil.valbak.hermansen@gmail.com", name="Emil Hermansen")
+        return emailservice_pb2.Email(mail_address="emil.valbak.hermansen@gmail.com", name="Emil Hermansen")
+
+    def GetFooBars(self, request, context):
+        foo = emailservice_pb2.Foo()
+        foo.bars.add(i=12, j=13)
+        foo.bars.add(i=12, j=13)
+        foo.bars.add(i=12, j=13)
+        foo.bars.add(i=12, j=13)
+        foo.bars.add(i=12, j=13)
+        foo.bars.add(i=12, j=13)
+
+        return emailservice_pb2.Foo(bars=foo.bars)
+
+    def GetEmails(self, request, context):
+        # DAO.GetEmail(request.field, request.filter)
+        # SELECT email, name from Users where User.field = filter
+
+        list_of_emails = emailservice_pb2.ListOfEmails()
+        list_of_emails.emails.add(mail_address="emil@gmail.com", name="emil")  # Adds a Bar then modify
+        list_of_emails.emails.add(mail_address="sebbe@gmail.com", name="sebbe")  # Adds a Bar then modify
+
+        return emailservice_pb2.ListOfEmails(emails=list_of_emails.emails)
 
 
 def serve():

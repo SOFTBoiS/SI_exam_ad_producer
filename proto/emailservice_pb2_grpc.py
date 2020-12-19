@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import emailservice_pb2 as emailservice__pb2
+import proto.emailservice_pb2 as emailservice__pb2
 
 
 class EmailServiceStub(object):
@@ -19,15 +19,10 @@ class EmailServiceStub(object):
                 request_serializer=emailservice__pb2.Query.SerializeToString,
                 response_deserializer=emailservice__pb2.Email.FromString,
                 )
-        self.SayHello = channel.unary_unary(
-                '/emailservice.EmailService/SayHello',
-                request_serializer=emailservice__pb2.HelloRequest.SerializeToString,
-                response_deserializer=emailservice__pb2.HelloReply.FromString,
-                )
-        self.SayHelloAgain = channel.unary_unary(
-                '/emailservice.EmailService/SayHelloAgain',
-                request_serializer=emailservice__pb2.HelloRequest.SerializeToString,
-                response_deserializer=emailservice__pb2.HelloReply.FromString,
+        self.GetEmails = channel.unary_unary(
+                '/emailservice.EmailService/GetEmails',
+                request_serializer=emailservice__pb2.Query.SerializeToString,
+                response_deserializer=emailservice__pb2.ListOfEmails.FromString,
                 )
 
 
@@ -40,15 +35,8 @@ class EmailServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def SayHello(self, request, context):
+    def GetEmails(self, request, context):
         """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def SayHelloAgain(self, request, context):
-        """Sends another greeting
-        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -61,15 +49,10 @@ def add_EmailServiceServicer_to_server(servicer, server):
                     request_deserializer=emailservice__pb2.Query.FromString,
                     response_serializer=emailservice__pb2.Email.SerializeToString,
             ),
-            'SayHello': grpc.unary_unary_rpc_method_handler(
-                    servicer.SayHello,
-                    request_deserializer=emailservice__pb2.HelloRequest.FromString,
-                    response_serializer=emailservice__pb2.HelloReply.SerializeToString,
-            ),
-            'SayHelloAgain': grpc.unary_unary_rpc_method_handler(
-                    servicer.SayHelloAgain,
-                    request_deserializer=emailservice__pb2.HelloRequest.FromString,
-                    response_serializer=emailservice__pb2.HelloReply.SerializeToString,
+            'GetEmails': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetEmails,
+                    request_deserializer=emailservice__pb2.Query.FromString,
+                    response_serializer=emailservice__pb2.ListOfEmails.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -99,7 +82,7 @@ class EmailService(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def SayHello(request,
+    def GetEmails(request,
             target,
             options=(),
             channel_credentials=None,
@@ -109,25 +92,8 @@ class EmailService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/emailservice.EmailService/SayHello',
-            emailservice__pb2.HelloRequest.SerializeToString,
-            emailservice__pb2.HelloReply.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def SayHelloAgain(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/emailservice.EmailService/SayHelloAgain',
-            emailservice__pb2.HelloRequest.SerializeToString,
-            emailservice__pb2.HelloReply.FromString,
+        return grpc.experimental.unary_unary(request, target, '/emailservice.EmailService/GetEmails',
+            emailservice__pb2.Query.SerializeToString,
+            emailservice__pb2.ListOfEmails.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

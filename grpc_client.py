@@ -18,8 +18,7 @@ import logging
 
 import grpc
 
-import emailservice_pb2
-import emailservice_pb2_grpc
+from proto import emailservice_pb2, emailservice_pb2_grpc
 
 
 def run():
@@ -31,10 +30,26 @@ def run():
     response = stub.SayHelloAgain(emailservice_pb2.HelloRequest(name='you'))
     print("Greeter client received: " + response.message)
 
-    response = stub.GetEmail(emailservice_pb2.Query(field="country", filter="Denmark"))
-    print("Greeter client received: " + response.email, response.name)
+    response = stub.GetFooBars(emailservice_pb2.HelloRequest(name="hello"))
+    print("Greeter client received: " + str(response.bars[1]))
+
+    for bar in response.bars:
+        print(bar.i)
+        print(bar.j)
+
+
+def get_email(field="country", query_filter="DK", message="test mails"):
+    channel = grpc.insecure_channel('localhost:50051')
+    stub = emailservice_pb2_grpc.EmailServiceStub(channel)
+    response = stub.GetEmails(emailservice_pb2.Query(field=field, filter=query_filter))
+    for email in response.emails:
+        print(f'Sending email to "{email.mail_address}" with message: "Hi {email.name}! We have a special offer for  you.. {message}"')
+
+    return len(response.emails)
+
 
 
 if __name__ == '__main__':
     logging.basicConfig()
     run()
+    get_email()
