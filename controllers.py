@@ -13,8 +13,8 @@ def hello_world():
 def foo():
     try:
         data = request.json
-        res = grpc_client.get_email(field=data["field"], query_filter=data["filter"],
-                                    message=data["message"])
+        res = grpc_client.get_email()
         return f"{res} emails sent", 200
-    except:
+    except Exception as ex:
+        print(ex)
         return "Invalid query. Check your values", 403

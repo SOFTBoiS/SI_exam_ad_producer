@@ -38,7 +38,7 @@ def run():
         print(bar.j)
 
 
-def get_email(field="country", query_filter="DK", message="test mails"):
+def get_email(field="departure_airport", query_filter="CPH", message="test mails"):
     channel = grpc.insecure_channel('localhost:50051')
     stub = emailservice_pb2_grpc.EmailServiceStub(channel)
     response = stub.GetEmails(emailservice_pb2.Query(field=field, filter=query_filter))
