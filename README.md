@@ -12,7 +12,7 @@ With this microservice you hit and endpoint with your query and the message you 
 ## Getting started
 ### Requirements
 - Python 3.7+ 
-- [Monolithic flight application](https://github.com/SOFTBoiS/SI_Exam_Monolithic_Flight_Application) up and running on port 44361 using HTTPS
+- [Monolithic flight application](https://github.com/SOFTBoiS/SI_Exam_Monolithic_Flight_Application) up and running on port 50051 using HTTPS
 - cURL or Postman to make POST requests
 
 ### Running the project
